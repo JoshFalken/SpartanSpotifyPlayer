@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/topSearchPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <!--- this is here for focus purposes -->
+        <com.vanderfalken.spartanspotifyplayer.TextViewPlus
+            android:layout_alignRight="@+id/searchFrame"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=""
+            android:id="@+id/remove2"
+            style="@style/textView"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+
+            />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/searchFrame">
+            <com.vanderfalken.spartanspotifyplayer.TextViewPlus
+                android:layout_gravity="left|center"
+                android:layout_alignRight="@+id/filterText"
+                android:paddingLeft="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fa_search"
+                android:id="@+id/magnifyingclass"
+                style="@style/textView"
+                />
+
+            <EditText
+                android:cursorVisible="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/filterText"
+                />
+            <com.vanderfalken.spartanspotifyplayer.TextViewPlus
+                android:layout_gravity="right|center"
+                android:paddingRight="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fa_remove"
+                android:onClick="onRemoveFilterTextClicked"
+                android:id="@+id/removeFilterText"
+                android:visibility="invisible"
+                style="@style/textView"
+                />
+
+        </FrameLayout>
+    </LinearLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@+id/contentSelectionPanel"
+        android:id="@+id/contentSelectionDivider"
+        android:background="#000000"
+        >
+        <View
+            android:focusableInTouchMode="true"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/panelDividerLeftLine"
+            android:background="@color/apptheme_color"/>
+
+        <View
+            android:focusableInTouchMode="true"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignBottom="@id/panelDividerLeftLine"
+            android:id="@+id/panelDividerMiddleLine"
+            android:background="@color/apptheme_color"/>
+        <View
+            android:focusableInTouchMode="true"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/panelDividerMiddleLine"
+            android:id="@+id/panelDividerRightLine"
+            android:background="@color/apptheme_color"/>
+    </RelativeLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_below="@+id/topSearchPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ff000000"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:id="@+id/contentSelectionPanel"
+        >
+
+        <com.vanderfalken.spartanspotifyplayer.ButtonPlus
+            style="@style/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onPlaylistsClicked"
+            android:text="@string/fa_list"
+            android:clickable="true"
+            android:textColor="@drawable/custom_btn_text_color"
+            android:id="@+id/contentPlaylistSelectionButton"
+            android:layout_weight="1"
+            />
+
+        <!--
+        <com.vanderfalken.spartanspotifyplayer.ButtonPlus
+            style="@style/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onSavedTracksButtonClicked"
+            android:text="@string/fa_music"
+            android:clickable="true"
+            android:textColor="@drawable/custom_btn_text_color"
+            android:id="@+id/contentSongSelectionButton"
+            android:layout_weight="1"
+            />
+        -->
+        <com.vanderfalken.spartanspotifyplayer.ButtonPlus
+            style="@style/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onSavedAlbumsButtonClicked"
+            android:text="@string/fa_dot_circle_o"
+            android:clickable="true"
+            android:textColor="@drawable/custom_btn_text_color"
+            android:id="@+id/contentAlbumSelectionButton"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:listSelector="@android:color/transparent"
+        android:divider="@color/apptheme_color"
+        android:dividerHeight="1dp"
+        android:layout_above="@+id/playerButtonPanel"
+        android:layout_below="@+id/contentSelectionDivider">
+
+    </ListView>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:id="@+id/buttonPlayerDivider"
+        android:background="#000000"
+        android:layout_alignBottom="@+id/list"
+        android:layout_alignParentStart="true">
+            <View
+                android:focusableInTouchMode="true"
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/bottomDividerLeftLine"
+                android:background="@color/apptheme_color"/>
+
+            <View
+                android:focusableInTouchMode="true"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignTop="@id/bottomDividerLeftLine"
+                android:id="@+id/bottomDividerMiddleLine"
+                android:background="@color/apptheme_color"/>
+            <View
+                android:focusableInTouchMode="true"
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@id/bottomDividerMiddleLine"
+                android:id="@+id/bottomDividerRightLine"
+                android:background="@color/apptheme_color"/>
+    </RelativeLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ff000000"
+        android:orientation="horizontal"
+        android:weightSum="4"
+        android:id="@+id/playerButtonPanel"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+        <com.vanderfalken.spartanspotifyplayer.ButtonPlus
+            style="@style/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onShuffleButtonClicked"
+            android:text="@string/fa_shuffle"
+            android:clickable="true"
+            android:textColor="@drawable/custom_btn_text_color"
+            android:id="@+id/shuffleButton"
+            android:layout_weight="1"
+            />
+
+        <com.vanderfalken.spartanspotifyplayer.ButtonPlus
+            style="@style/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onBackwardButtonClicked"
+            android:text="@string/fa_step_backward"
+            android:clickable="true"
+            android:textColor="@drawable/custom_btn_text_color"
+            android:id="@+id/backwardButton"
+            android:layout_weight="1"
+            />
+
+        <com.vanderfalken.spartanspotifyplayer.ButtonPlus
+            style="@style/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onPlayStopButtonClicked"
+            android:text="@string/fa_play"
+            android:clickable="true"
+            android:textColor="@drawable/custom_btn_text_color"
+            android:id="@+id/playStopButton"
+            android:layout_weight="1"
+            />
+
+
+        <com.vanderfalken.spartanspotifyplayer.ButtonPlus
+            style="@style/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onForwardButtonClicked"
+            android:text="@string/fa_step_forward"
+            android:clickable="true"
+            android:textColor="@drawable/custom_btn_text_color"
+            android:id="@+id/forwardButton"
+            android:layout_weight="1"
+            />
+
+        <!--
+        <com.vanderfalken.spartanspotifyplayer.ButtonPlus
+            style="@style/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onPowerOffButtonClicked"
+            android:text="@string/fa_power_off"
+            android:clickable="true"
+            android:textColor="@drawable/custom_btn_text_color"
+            android:id="@+id/powerOffButton"
+            android:layout_weight="1"
+            />
+            -->
+    </LinearLayout>
+
+
+
+</RelativeLayout>

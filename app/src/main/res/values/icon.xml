@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fa_play">&#xf04b;</string>
+    <string name="fa_stop">&#xf04d;</string>
+    <string name="fa_backward">&#xf04a;</string>
+    <string name="fa_fastforward">&#xf050;</string>
+    <string name="fa_power_off">&#xf011;</string>
+    <string name="fa_shuffle">&#xf074;</string>
+    <string name="fa_step_forward">&#xf051;</string>
+    <string name="fa_step_backward">&#xf048;</string>
+    <string name="fa_search">&#xf002;</string>
+    <string name="fa_remove">&#xf00d;</string>
+    <string name="fa_dot_circle_o">&#xf192;</string>
+    <string name="fa_list">&#xf03a;</string>
+    <string name="fa_music">&#xf001;</string>
+</resources>
+
+

@@ -1,0 +1,11 @@
+/app/src/test/java/com/vanderfalken/spartanspotifyplayer
+/app/src/androidTest/java/com/vanderfalken/spartanspotifyplayer
+/app/src/main/res/values/spotify_settings2.xml
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
