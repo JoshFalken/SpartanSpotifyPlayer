@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
+import android.provider.Contacts;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
@@ -55,6 +56,7 @@ public class MainActivity extends Activity implements SpotifyControllerListener 
     private SpotifyController mSpotifyController;
     private PlayerStatus mPlayerStatus;
     private PlayerModus mPlayerModus;
+    private SelectedContent mSelectedContent;
 
     private enum PlayerStatus {
         Idle, Playing, Pausing
@@ -65,10 +67,10 @@ public class MainActivity extends Activity implements SpotifyControllerListener 
     }
 
     private enum UIButtons {
-        All, Shuffle, PlayStop, Backward, Forward, PowerOff
+        All, Shuffle, PlayStop, Backward, Forward, PowerOff, ContentSelection
     }
 
-    private enum ActiveView {
+    private enum SelectedContent {
         UserPlaylists, UserSavedAlbums
     }
 
@@ -85,6 +87,7 @@ public class MainActivity extends Activity implements SpotifyControllerListener 
         mSpotifyController.addListener(this);
         mPlayerStatus = PlayerStatus.Idle;
         mPlayerModus = PlayerModus.Linear;
+        mSelectedContent = SelectedContent.UserPlaylists;
     }
 
     @Override
@@ -123,6 +126,8 @@ public class MainActivity extends Activity implements SpotifyControllerListener 
         // set some basic properties
         mListView = (ListView) findViewById(R.id.list);
         FormatFilterText();
+        updateUI(UIButtons.All);
+
     }
 
     ///////////////////////////////////////////////////////////
@@ -218,9 +223,25 @@ public class MainActivity extends Activity implements SpotifyControllerListener 
             Button shuffleButton = (Button) findViewById(R.id.shuffleButton);
 
             if (mPlayerModus == PlayerModus.Linear) {
-                shuffleButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.apptheme_color));
-            } else {
                 shuffleButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.defaulttext_color));
+            } else {
+                shuffleButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.apptheme_color));
+            }
+        }
+
+        if (uiButtonsToUpdate == UIButtons.All || uiButtonsToUpdate == UIButtons.ContentSelection)
+        {
+            Button playlistButton = (Button) findViewById(R.id.contentPlaylistSelectionButton);
+            Button albumButton = (Button) findViewById(R.id.contentAlbumSelectionButton);
+            if (mSelectedContent == SelectedContent.UserPlaylists)
+            {
+                playlistButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.apptheme_color));
+                albumButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.defaulttext_color));
+            }
+            if (mSelectedContent == SelectedContent.UserSavedAlbums)
+            {
+                playlistButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.defaulttext_color));
+                albumButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.apptheme_color));
             }
         }
     }
@@ -330,11 +351,15 @@ public class MainActivity extends Activity implements SpotifyControllerListener 
     // ContentFiltering panel - buttons
     ///////////////////////////////////////////////////////////
     public void onSavedAlbumsButtonClicked(View v) {
+        mSelectedContent = SelectedContent.UserSavedAlbums;
         mSpotifyController.retrieveSavedAlbums();
+        updateUI(UIButtons.ContentSelection);
     }
 
     public void onPlaylistsClicked(View v) {
+        mSelectedContent = SelectedContent.UserPlaylists;
         mSpotifyController.retrievePlaylistSimples();
+        updateUI(UIButtons.ContentSelection);
     }
 
     ///////////////////////////////////////////////////////////
@@ -388,10 +413,9 @@ public class MainActivity extends Activity implements SpotifyControllerListener 
                         mPlayer.queue(trackSimple.uri);
                     }
                     mPlayerStatus = PlayerStatus.Playing;
-
+                    Log.d("saved album playing", savedAlbum.album.uri);
                 }
                 clearFocusFilterText();
-                Log.d("saved album playing", savedAlbum.album.uri);
                 updateUI(UIButtons.PlayStop);
             }
         });
