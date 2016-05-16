@@ -1,5 +1,7 @@
 # SpartanSpotifyPlayer
 
+[[https://github.com/JoshFalken/SpartanSpotifyPlayer/blob/master/app/src/main/assets/screenshots/mainscreen.png|alt=octocat]]
+
 A minimal spotify player for android. It is a perfect starting ground for building your own spotify android App.
 
 # HowTo
